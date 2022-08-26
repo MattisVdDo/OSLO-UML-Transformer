@@ -79,7 +79,7 @@ export class ShaclGenerator extends Generator<GeneratorConfiguration> {
         'sh:class';
 
       propertyShape[dataTypeOrNodeKindPredicate] = range['@id'];
-
+      
       shapes.set(property.guid, propertyShape);
 
       // Build map with classId (domainId in property) mapped to well-known id

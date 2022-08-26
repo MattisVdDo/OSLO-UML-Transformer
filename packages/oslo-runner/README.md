@@ -15,6 +15,8 @@ The runner is executed from the command line and expects the following input par
 | `--appType` | `-t` | The app that should be created by the app runner | `converter` / `generator` |
 | `--config` | `-c` | Configuration file that is passed to the app | *path to the config file* (a **JSON** file) |
 
+Example execution : `node bin/runner.js -t generator -c ./config/generator-example-config.json`
+
 ### Configuration
 
 Depending on the converter or generator(s) that will run, the configuration file will be different. **Additionally, a specific converter or generator(s) can be configured in the configuration file. Make sure the converter or generators are added to the package.json of the runner package.** 

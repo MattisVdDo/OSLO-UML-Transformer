@@ -28,12 +28,12 @@ export class ShaclValidatorConfigGenerator extends Generator<GeneratorConfigurat
         };
 
         if (this.configuration.fullRebuild) {
-            await this.rebuildConfig(this.configuration.shaclConfig);//rebuilds the entire config.properties file with a default configuration
+            await this.rebuildConfig(this.configuration.shaclConfigOutput); //rebuilds the entire config.properties file with a default configuration
         }else if (!this.configuration.fullRebuild) {
-            await this.reformatTypelst(this.configuration.shaclConfig); //makes sure all types in the list are on the same line (and in the list)
+            await this.reformatTypelst(this.configuration.shaclConfigOutput); //makes sure all types in the list are on the same line (and in the list)
         }
-        await this.writeBlockToConfig(this.configuration.shaclConfig, key, value, report["shacl"]["addToConfig"]); //adds/edits new elements
-        await this.reformatConfig(this.configuration.shaclConfig) //reformats the enitre config.properties file to its original form
+        await this.writeBlockToConfig(this.configuration.shaclConfigOutput, key, value, report["shacl"]["addToConfig"]); //adds/edits new elements
+        await this.reformatConfig(this.configuration.shaclConfigOutput) //reformats the enitre config.properties file to its original form
     }
 
     private async writeBlockToConfig(path:string, key: any, value: any, addToConfig: boolean) { //adds/edits new elements
@@ -45,7 +45,7 @@ export class ShaclValidatorConfigGenerator extends Generator<GeneratorConfigurat
             if (validatorkey.endsWith('.'+value.typelabel.toLowerCase().replaceAll(' ', '_')) && properties._properties[validatorkey].toLowerCase() == value.typelabel.toLowerCase() && String(properties.get(key.url)) != String(value.url)) { //if 2 different uri's have the same name, throw error and stop loop
                 throw new Error(`${properties.get(key.url)} and ${value.url} are different URI's but have the same typelabels (${value.typelabel})`);
             }else if (validatorkey.endsWith('.0.url') && properties.get(validatorkey) == value.url) { //if uri already exists in config file, delete old data
-                if (addToConfig) {
+                if (addToConfig && !this.configuration.excluded.includes(value.typelabel.toString())) {
                     var label = validatorkey.split('.')[2];
                     var typelst = properties._properties['validator.type'].split(',').map((x:string) => x.trim());
                     typelst.splice(typelst.indexOf(label), 1);
@@ -58,7 +58,7 @@ export class ShaclValidatorConfigGenerator extends Generator<GeneratorConfigurat
             }
         }
         
-        if (addToConfig) {
+        if (addToConfig && !this.configuration.excluded.includes(value.typelabel.toString())) {
             if (!properties._properties['validator.type'].includes(value.typelabel.toLowerCase().replaceAll(" ", "_")))  {
                 if (properties._properties['validator.type']) {
                     properties.set("validator.type", properties.get("validator.type") +  ", " + value.typelabel.toLowerCase().replaceAll(" ", "_")); //add new/updated name to type list

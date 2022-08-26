@@ -1,5 +1,5 @@
 {
-  "generatorPackageName": "oslo-generator-shacl-validator-config",
+  "generatorPackageName": "@oslo-flanders/shacl-generator",
   "inputFile": "./report-test.jsonld",
   "addDomainPrefix": true,
   "language": "nl",
@@ -10,6 +10,12 @@
   "documentId": "/doc/vocabularium/test-standaard/ontwerpstandaard/2022-06-21",
   "baseUri": "https://data.vlaanderen.be",
   "ldesBackendConnectorPackageName": "@oslo-flanders/mongodb-ldes-connector",
-  "shaclConfig": "",
-  "fullRebuild": true
+  "shaclConfigOutput": "config.properties",
+  "fullRebuild": false,
+  "excluded": [
+    "Label of excluded specification", 
+    "DCAT-AP Vlaanderen", 
+    "metadata DCAT", 
+    "GEODCAT-AP Vlaanderen"
+  ]
 }

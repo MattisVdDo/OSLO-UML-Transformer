@@ -9,6 +9,7 @@ export interface GeneratorConfiguration {
   baseUri: string;
   ldesBackendConnectorPackageName: string;
   databaseUrl: string;
-  shaclConfig: string;
+  shaclConfigOutput: string;
   fullRebuild: boolean;
+  excluded: Array<string>;
 }

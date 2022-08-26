@@ -76,7 +76,7 @@
     }
   },
   "@id": "https://data.vlaanderen.be/doc/vocabularium/test-standaard/ontwerpstandaard/2022-06-21",
-  "shacl": {"path": "testpath/to/testfile", "name": "Test name", "addToConfig": true},
+  "shacl": {"path": "", "name": "TypeLabel", "addToConfig": true},
   "packages": [
     {
       "@id": "https://data.vlaanderen.be/ns/persoon",
